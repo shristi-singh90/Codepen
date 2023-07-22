@@ -1,6 +1,7 @@
 import React from 'react'
 import Header from './Header'
 import Code from './Code'
+import Result from './Result'
 
 
 const Home = () => {
@@ -8,6 +9,7 @@ const Home = () => {
  <>
    <Header/>
    <Code/>
+   <Result/>
    </>
   )
 }
