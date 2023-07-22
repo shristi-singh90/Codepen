@@ -1,4 +1,5 @@
 import React from 'react'
+import { useState } from 'react';
 import { Box,styled } from '@mui/material'
 import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen';
 import {Controlled as CodeMirror} from 'react-codemirror2'
@@ -7,6 +8,14 @@ import 'codemirror/theme/material.css';
 import 'codemirror/mode/xml/xml';
 import 'codemirror/mode/javascript/javascript';
 
+
+const Container = styled(Box)`
+flex-grow :1;
+flex-basic:0;
+display:flex;
+flex-direction:column;
+padding : 0 8px 8px;
+`
 
 
 const Change = styled(Box)`
@@ -22,9 +31,15 @@ color: #AAAEBC;
 justify-content : space-between;
 font-weight : 700;
 `
-const Editor = ({heading,icon,color}) => {
+const Editor = ({heading,icon,color,value,onChange}) => {
+
+  const [open,setOpen] =useState(true);
+
+  const handleChange = (editor,data,value) =>{
+    onChange(value);
+  }
   return (
-    <Box>
+    <Container style={ open ? null : {flexGrow:0}}>
    <Header>
 <Change>
 
@@ -39,6 +54,7 @@ const Editor = ({heading,icon,color}) => {
         marginRight:5,
         paddingBottom:2,
         color : '#000'
+       
 
 
       }}>
@@ -46,17 +62,23 @@ const Editor = ({heading,icon,color}) => {
     </Box>
     {heading}
 </Change>
-<CloseFullscreenIcon/>
+<CloseFullscreenIcon
+fontSize='small'
+style={{alignSelf:'center'}}
+ onClick = {()=> setOpen(prevState =>!prevState)}
+/>
    </Header>
 
    <CodeMirror
    className='controlled-editor'
+   value = {value}
+   onBeforeChange={handleChange}
    options={{
      theme: 'material',
      lineNumbers: true
    }}
    />
-    </Box>
+    </Container>
   )
 }
 

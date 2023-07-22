@@ -16,7 +16,7 @@ const Header = () => {
   
     <Container position='static'>
         <Toolbar>
-            Hello
+          
         </Toolbar>
     </Container>
     </>
